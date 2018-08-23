@@ -11,6 +11,7 @@ class EJSAsset extends Asset {
   async generate() {
     const ejs = await localRequire("ejs", this.name);
     const config = (await this.getConfig([".ejsrc", ".ejsrc.js", "ejs.config.js"])) || {};
+    const data = (await this.getConfig([".ejsdata", ".ejsdata.js", "ejs.data.js"])) || {};
 
     const compiled = ejs.compile(this.contents, {
       cache              : config.cache,
@@ -30,7 +31,7 @@ class EJSAsset extends Asset {
       async              : false,
     });
 
-    return compiled;
+    return compiled(data);
   }
 }
 
