@@ -20,14 +20,6 @@ class EJSAsset extends Asset {
       rmWhitespace: config.rmWhitespace,
     });
 
-    if (compiled.dependencies) {
-      for (let item of compiled.dependencies) {
-        this.addDependency(item, {
-          includedInParent: true,
-        });
-      }
-    }
-
     return compiled;
   }
 }
