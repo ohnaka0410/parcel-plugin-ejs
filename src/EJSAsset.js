@@ -13,11 +13,21 @@ class EJSAsset extends Asset {
     const config = (await this.getConfig([".ejsrc", ".ejsrc.js", "ejs.config.js"])) || {};
 
     const compiled = ejs.compile(this.contents, {
-      compileDebug: false,
-      filename: this.name,
-      _with: false,
-      escape: config.escape,
-      rmWhitespace: config.rmWhitespace,
+      cache              : config.cache,
+      filename           : this.name,
+      root               : config.root,
+      context            : config.context,
+      compileDebug       : config.compileDebug || false,
+      client             : config.client,
+      delimiter          : config.delimiter,
+      debug              : config.debug,
+      strict             : config.strict,
+      _with              : config._with || false,
+      localsName         : config.localsName,
+      rmWhitespace       : config.rmWhitespace,
+      escape             : config.escape,
+      outputFunctionName : config.outputFunctionName ,
+      async              : false,
     });
 
     return compiled;
